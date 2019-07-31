@@ -1,0 +1,19 @@
+- name: stop agent
+  shell:
+    cmd: ./agent.sh stop force || true
+    chdir: "{{ agent1_root_dir }}/bin"
+  ignore_errors: true
+  tags: [ never, stop ]
+
+- name: start teamcity agent
+  shell:
+    cmd: ./agent.sh start
+    chdir: "{{ agent1_root_dir }}/bin"
+  tags: [ never, start ]
+
+- name: show agent status
+  shell:
+    cmd: ./agent.sh status
+    chdir: "{{ agent1_root_dir }}/bin"
+  tags: [ never, status ]
+

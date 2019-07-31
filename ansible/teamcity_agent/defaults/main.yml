@@ -1,0 +1,13 @@
+server_url: "https://teamcity.example.com"
+agent_name: "teamcity"
+agent_owner: "root"
+data_dir: "data"
+agent_dir: "teamcity"
+agent1_root_dir: "/etc/{{ agent_dir }}"
+data1_root_dir: "/{{ agent1_root_dir }}/{{ data_dir }}"
+conf_dir: "/{{ agent1_root_dir }}/conf"
+conf_file: "{{ conf_dir }}/buildAgent.properties" 
+agent_work_dir: "{{ data1_root_dir }}/work"
+agent_temp_dir: ../temp
+agent_system_dir: ../system
+agent_host: "{{ inventory_hostname }}"
