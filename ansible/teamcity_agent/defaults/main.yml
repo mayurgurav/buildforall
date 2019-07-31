@@ -1,4 +1,4 @@
-server_url: "https://flow-teamcity3.ubs.net"
+server_url: "https://teamcity.example.com"
 agent_name: "teamcity"
 agent_owner: "root"
 data_dir: "data"
