@@ -1,0 +1,45 @@
+- name: create work directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ agent_owner }}"
+    group: "{{ agent_owner }}"
+    mode: 0755
+  with_items: "{{ agent1_root_dir }}"
+  tags: [ never, fresher ]
+
+
+- name: install new configuration
+  get_url:
+    url: "{{ server_url }}/update/buildAgent.zip"
+    dest:  "{{ agent1_root_dir }}/buildAgent.zip"
+  tags: [ never, fresher ]
+
+- name: extracting buildagent configuration
+  unarchive:
+    src:  "{{ agent1_root_dir }}/buildAgent.zip"
+    dest: "{{ agent1_root_dir }}"
+    remote_src: yes
+  tags: [ never, fresher ]
+
+
+- name: create data_dir temp directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ agent_owner }}"
+    group: "{{ agent_owner }}"
+    mode: 0755
+  with_items: "{{ data1_root_dir }}"
+  tags: [ never, fresher ]
+
+
+- name: template for new teamcity installation
+  template:
+    src: buildAgent.properties.j2
+    dest: "{{ conf_file }}" 
+    owner: "{{ agent_owner }}"
+    group: "{{ agent_owner }}"
+    mode: 0644
+  tags:  [never, fresher]
+
